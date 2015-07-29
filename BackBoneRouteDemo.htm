@@ -1,0 +1,75 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Backbone Sample Application</title>
+    <link href="bootstrap-3.2.0-dist/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="bootstrap-3.2.0-dist/css/bootstrap-theme.min.css" rel="stylesheet" type="text/css" />
+    <script src="libs/jquery-1.9.1.js" type="text/javascript"></script>
+    <script src="libs/underscore.js" type="text/javascript"></script>
+    <script src="libs/json2.js" type="text/javascript"></script>
+    <script src="bootstrap-3.2.0-dist/js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="libs/backbone.js" type="text/javascript"></script>
+    <script src="js/model.js" type="text/javascript"></script>
+    <script src="js/view.js" type="text/javascript"></script>
+    <script src="js/routes.js" type="text/javascript"></script>
+</head>
+<body>
+    <div class="main">
+        <div id="AppContainer">
+        </div>
+        <script type="text/javascript">
+            // This code block will handle the view which are not route enabled.
+            var greeting = new GreetModel({ Message: "Hello world" });
+
+            var container = new ContainerView({ el: $("#AppContainer"), model: greeting });
+            var view1 = null;
+            var view2 = null;
+            var view3 = null;
+
+            function showView1() {
+                if (view1 == null) {
+                    view1 = new View1({ model: greeting });
+                }
+
+                container.myChildView = view1;
+                container.render();
+            }
+
+            function showView2() {
+                if (view2 == null) {
+                    view2 = new View2({ model: greeting });
+                }
+
+                container.myChildView = view2;
+                container.render();
+            }
+
+            function showView3() {
+                if (view3 == null) {
+                    view3 = new View3({ model: greeting });
+                }
+
+                container.myChildView = view3;
+                container.render();
+            }
+
+            var router = null;
+
+            $(document).ready(function () {
+                router = new myRouter();
+                Backbone.history.start();
+            })
+
+        </script>
+        <input id="Button1" type="button" value="View1" onclick="showView1();" />
+        <input id="Button2" type="button" value="View2" onclick="showView2();" />
+        <input id="Button3" type="button" value="View3" onclick="showView3();" />
+        <div id="rAppContainer">
+            Router Enabled
+        </div>
+        <input id="Button4" type="button" value="View1" onclick="router.navigate('view1', {trigger: true});" />
+        <input id="Button5" type="button" value="View2" onclick="router.navigate('view2', {trigger: true});" />
+        <input id="Button6" type="button" value="View3" onclick="router.navigate('view3', {trigger: true});" />
+    </div>
+</body>
+</html>
